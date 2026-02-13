@@ -13,8 +13,13 @@
         'ai_app',
     ],
     'data': [
+        'security/ir.model.access.csv',
+        'data/ai_agent_data.xml',
     ],
     'assets': {
+        'web.assets_frontend': [
+            'ai_agent/static/src/chat_patch.js',
+        ],
     },
     'installable': True,
     'application': True,
