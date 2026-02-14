@@ -4,10 +4,11 @@
         <record id="ai_agent_a2ui" model="ai.agent">
             <field name="name">Asistente Inteligente A2UI</field>
             <field name="provider">google_gemini</field>
-            <field name="llm_id" search="[('name', 'ilike', 'flash')]" model="ai.llm"/>
+            <field name="llm_model">gemini-2.5-flash</field>
             <field name="system_prompt">
                 Eres un asistente operativo de Odoo. 
-                Usa las herramientas para dar datos reales.
+                Cuando entregues datos de productos o leads, hazlo en formato estructurado.
+                Si detectas una acción de compra o creación, confirma los datos antes de ejecutar.
             </field>
         </record>
 
