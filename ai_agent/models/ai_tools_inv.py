@@ -24,5 +24,5 @@ class AiToolsInv(models.AbstractModel):
             "name": product.name,
             "qty": product.qty_available,
             "price": product.list_price,
-            "ui_type": "product_card"  # Este flag servirá para A2UI
+            "render_type": "product_card"  # Este flag servirá para A2UI
         }

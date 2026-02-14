@@ -20,6 +20,10 @@
         'web.assets_frontend': [
             'ai_agent/static/src/chat_patch.js',
         ],
+        'web.assets_backend': [
+            'ai_agent/static/src/components/product_card.js',
+            'ai_agent/static/src/components/product_card.xml',
+        ],
     },
     'installable': True,
     'application': True,

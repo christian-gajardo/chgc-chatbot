@@ -14,7 +14,12 @@
         <record id="ai_topic_inventory" model="ai.topic">
             <field name="name">Gestión de Inventario</field>
             <field name="description">Herramientas para consultar stock y productos.</field>
-<!--        <field name= instructions> Aqui pueden ir las instrucciones para el uso del topico</field>-->
+            <field name="instructions">
+                Cuando el usuario pregunte por un producto, usa la herramienta 'Consultar Stock'.
+                IMPORTANTE: No respondas solo con texto. Usa los datos recibidos para generar una 
+                tarjeta dinámica. Si recibes un JSON con 'render_type': 'product_card', presenta la 
+                información de forma visual incluyendo el precio y la imagen.
+            </field>
             <field name="tool_ids" eval="[(4, ref('action_ai_inventory_stock'))]"/>
         </record>
 
