@@ -11,10 +11,10 @@
             </field>
         </record>
 
-        <record id="ai_tool_inventory" model="ai.tool">
+ <!--       <record id="ai_tool_inventory" model="ai.tool">
             <field name="agent_id" ref="ai_agent_a2ui"/>
             <field name="model_id" search="[('model', '=', 'ai.tools.inv')]" model="ir.model"/>
             <field name="method_name">get_product_stock</field>
-        </record>
+        </record>-->
     </data>
 </odoo>
