@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
         <record id="ai_agent_a2ui" model="ai.agent">
             <field name="name">Asistente Inteligente A2UI</field>
             <field name="provider">google_gemini</field>
-            <field name="model_id" search="[('name', 'ilike', 'flash')]" model="ai.model"/>
+            <field name="llm_id" search="[('name', 'ilike', 'flash')]" model="ai.llm"/>
             <field name="system_prompt">
                 Eres un asistente operativo de Odoo. 
-                Cuando entregues datos de productos o leads, hazlo en formato estructurado.
-                Si detectas una acción de compra o creación, confirma los datos antes de ejecutar.
+                Usa las herramientas para dar datos reales.
             </field>
         </record>
 
@@ -18,6 +16,5 @@
             <field name="model_id" search="[('model', '=', 'ai.tools.inv')]" model="ir.model"/>
             <field name="method_name">get_product_stock</field>
         </record>
-
     </data>
 </odoo>
