@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="action_ai_inventory_stock" model="ir.actions.server">
+            <field name="name">Consultar Stock de Inventario</field>
+            <field name="model_id" ref="model_ai_tools_inv"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.get_product_stock()
+            </field>
+            <field name="use_in_ai" eval="True"/>
+        </record>
+
+        <record id="ai_topic_inventory" model="ai.topic">
+            <field name="name">Gestión de Inventario</field>
+            <field name="description">Herramientas para consultar stock y productos.</field>
+            <field name="tool_ids" eval="[(4, ref('action_ai_inventory_stock'))]"/>
+        </record>
+
+<!--        <record id="ai_tool_inventory" model="ai.agent.tool">
+            <field name="topic_id" ref="ai_topic_inventory"/>
+            <field name="model_id" search="[('model', '=', 'ai.tools.inv')]" model="ir.model"/>
+            <field name="method_name">get_product_stock</field>
+        </record>-->
+
         <record id="ai_agent_a2ui" model="ai.agent">
             <field name="name">Asistente Inteligente A2UI</field>
             <field name="llm_model">gemini-2.5-flash</field>
@@ -9,17 +31,7 @@
                 Cuando entregues datos de productos o leads, hazlo en formato estructurado.
                 Si detectas una acción de compra o creación, confirma los datos antes de ejecutar.
             </field>
+            <field name="topic_ids" eval="[(4, ref('ai_topic_inventory'))]"/>
         </record>
-
-        <record id="ai_topic_inventory" model="ai.topic">
-            <field name="name">Gestión de Inventario</field>
-            <field name="description">Herramientas para consultar stock y productos.</field>
-        </record>
-
-<!--        <record id="ai_tool_inventory" model="ai.agent.tool">
-            <field name="topic_id" ref="ai_topic_inventory"/>
-            <field name="model_id" search="[('model', '=', 'ai.tools.inv')]" model="ir.model"/>
-            <field name="method_name">get_product_stock</field>
-        </record>-->
     </data>
 </odoo>
