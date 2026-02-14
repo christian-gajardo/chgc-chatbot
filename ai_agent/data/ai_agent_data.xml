@@ -4,7 +4,7 @@
         <record id="ai_agent_a2ui" model="ai.agent">
             <field name="name">Asistente Inteligente A2UI</field>
             <field name="provider">google_gemini</field>
-            <field name="model_id" search="[('name', 'ilike', 'gemini')]"/>
+            <field name="model_id" search="[('name', '=', 'gemini-2.5-flash')]"/>
             <field name="system_prompt">
                 Eres un asistente operativo de Odoo. 
                 Cuando entregues datos de productos o leads, hazlo en formato estructurado.
