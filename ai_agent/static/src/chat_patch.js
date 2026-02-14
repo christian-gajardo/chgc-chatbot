@@ -8,6 +8,6 @@ patch(Message.prototype, {
      */
     get isA2UI() {
         // Lógica para detectar si el mensaje debe ser un componente
-        return this.message.body.includes('ui_type');
+        return this.message.body.includes('render_type');
     }
 });

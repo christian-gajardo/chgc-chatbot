@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ai_agent.ProductCard">
+        <div class="o_ai_product_card_container">
+            
+            <img t-att-src="product.image_url" class="o_ai_card_img" alt="Imagen del producto"/>
+            
+            <div class="o_ai_card_content">
+                <h6 class="o_ai_card_title" t-att-title="product.name">
+                    <t t-esc="product.name"/>
+                </h6>
+                
+                <div class="o_ai_card_info">
+                    <span class="o_ai_card_price">
+                        <t t-esc="product.price"/>
+                    </span>
+                    <small class="o_ai_card_stock">
+                        Stock: <t t-esc="product.stock"/>
+                    </small>
+                </div>
+                
+                <button class="o_ai_card_button" t-on-click="onViewProduct">
+                    Ver Detalles
+                </button>
+            </div>
+        </div>
+    </t>
+</templates>

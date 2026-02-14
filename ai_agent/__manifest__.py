@@ -17,12 +17,12 @@
         'data/ai_agent_data.xml',
     ],
     'assets': {
-        'web.assets_frontend': [
-            'ai_agent/static/src/chat_patch.js',
-        ],
         'web.assets_backend': [
-            'ai_agent/static/src/components/product_card.js',
-            'ai_agent/static/src/components/product_card.xml',
+            'ai_agent/static/src/chat_patch.js',
+            
+            'ai_agent/static/src/components/product_card/product_card.js',
+            'ai_agent/static/src/components/product_card/product_card.xml',
+            'ai_agent/static/src/components/product_card/product_card.css',
         ],
     },
     'installable': True,
