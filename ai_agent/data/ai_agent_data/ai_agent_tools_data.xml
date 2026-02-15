@@ -6,7 +6,9 @@
             <field name="model_id" ref="model_ai_tools_inv"/>
             <field name="state">code</field>
             <field name="code">
-                action = model.get_product_stock()
+                # El diccionario 'kwargs' contiene los argumentos enviados por la IA
+                product_name = kwargs.get('product_name')
+                action = model.get_product_stock(product_name=product_name)
             </field>
             <field name="use_in_ai" eval="True"/>
         </record>
