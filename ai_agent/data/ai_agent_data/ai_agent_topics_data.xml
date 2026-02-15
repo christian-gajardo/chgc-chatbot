@@ -18,11 +18,8 @@
             </field>
             <field name="tool_ids" eval="[
             
-            # Herramientas creadas por nosostros
             (4, ref('action_ai_inventory_stock')),
-
-
-            # Herramientas propias de Odoo
+            
             (4, ref('ai.ir_actions_server_search'))
             
             ]"/>
