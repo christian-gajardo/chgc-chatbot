@@ -10,4 +10,5 @@
             </field>
             <field name="use_in_ai" eval="True"/>
         </record>
+    </data>
 </odoo>
