@@ -5,16 +5,15 @@
             <field name="name">Gestión de Inventario</field>
             <field name="description">Herramientas para consultar stock y productos.</field>
             <field name="instructions">
-                1. PRIORIDAD DE BÚSQUEDA: Ante cualquier consulta ambigua, general o cuando el usuario no proporcione un nombre exacto de producto, usa SIEMPRE la herramienta 'AI: Search' (ai.ir_actions_server_search).
-                
-                2. CONSULTA DETALLADA: Usa la herramienta 'Consultar Stock' (action_ai_inventory_stock) ÚNICAMENTE cuando tengas el nombre específico de UN producto y el usuario requiera sus detalles técnicos o existencias.
-                
-                3. CONSULTAS MÚLTIPLES: Si el usuario pide detalles de varios productos o una lista:
-                - Primero, usa 'AI: Search' para identificar y confirmar los nombres exactos de los productos.
-                - Segundo, una vez confirmados los nombres, ejecuta 'Consultar Stock' para cada producto individualmente.
+                1. BÚSQUEDA GLOBAL: Usa 'AI: Search' para consultas generales. 
+                CAMPOS VÁLIDOS para 'product.product': 'display_name', 'list_price' (no usar 'price'), 'qty_available', 'default_code'.
 
-                4. RENDERIZACIÓN: Siempre que la respuesta de una herramienta sea un JSON, no respondas solo con texto. 
-                - Si el JSON incluye 'render_type': 'product_card', genera una tarjeta dinámica visual que incluya el precio y la imagen.
+                2. DETALLE DE PRODUCTO: Usa 'Consultar Stock' solo para un producto específico. 
+                Pasa el nombre en el parámetro 'product_name'.
+
+                3. RENDERIZADO OBLIGATORIO: Si usas 'Consultar Stock', la respuesta vendrá en formato JSON con 'render_type': 'product_card'. 
+                ¡PROHIBIDO responder con texto plano! Debes usar los datos del JSON para mostrar la tarjeta visual de Odoo. 
+                Si no recibes el JSON esperado, indica que hubo un error de formato.
             </field>
             <field name="tool_ids" eval="[
             
