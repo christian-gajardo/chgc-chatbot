@@ -14,7 +14,9 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/ai_agent_data/*',
+        'data/ai_agent_data/ai_agent_tools_data.xml',
+        'data/ai_agent_data/ai_agent_topics_data.xml',
+        'data/ai_agent_data/ai_agent_data.xml',
     ],
     'assets': {
         'web.assets_backend': [
