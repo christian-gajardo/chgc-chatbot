@@ -5,14 +5,26 @@
             <field name="name">Gestión de Inventario</field>
             <field name="description">Herramientas para consultar stock y productos.</field>
             <field name="instructions">
-                Cuando el usuario pregunte por un producto en especifico y requiera detalles siempre
-                que te de el nombre del producto, usa la herramienta 'Consultar Stock'.
-                IMPORTANTE: No respondas solo con texto siempre que llegue como respuesta un JSON.
-                Usa los datos recibidos para generar una tarjeta dinámica. 
-                Si recibes un JSON con 'render_type': 'product_card', presenta la información de forma visual incluyendo el 
-                precio y la imagen.
+                1. PRIORIDAD DE BÚSQUEDA: Ante cualquier consulta ambigua, general o cuando el usuario no proporcione un nombre exacto de producto, usa SIEMPRE la herramienta 'AI: Search' (ai.ir_actions_server_search).
+                
+                2. CONSULTA DETALLADA: Usa la herramienta 'Consultar Stock' (action_ai_inventory_stock) ÚNICAMENTE cuando tengas el nombre específico de UN producto y el usuario requiera sus detalles técnicos o existencias.
+                
+                3. CONSULTAS MÚLTIPLES: Si el usuario pide detalles de varios productos o una lista:
+                - Primero, usa 'AI: Search' para identificar y confirmar los nombres exactos de los productos.
+                - Segundo, una vez confirmados los nombres, ejecuta 'Consultar Stock' para cada producto individualmente.
+
+                4. RENDERIZACIÓN: Siempre que la respuesta de una herramienta sea un JSON, no respondas solo con texto. 
+                - Si el JSON incluye 'render_type': 'product_card', genera una tarjeta dinámica visual que incluya el precio y la imagen.
             </field>
-            <field name="tool_ids" eval="[(4, ref('action_ai_inventory_stock'))]"/>
+            <!-- Primer grupo de la lista son las herramientas creadas por nosostros, el segundo son herramientas propias de Odoo. -->
+            <field name="tool_ids" eval="[
+            
+            (4, ref('action_ai_inventory_stock')),
+
+
+            (4, ref('ai.ir_actions_server_search'))
+            
+            ]"/>
         </record>
     </data>
 </odoo>
