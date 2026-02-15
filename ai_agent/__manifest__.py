@@ -22,7 +22,7 @@
             
             'ai_agent/static/src/components/product_card/product_card.js',
             'ai_agent/static/src/components/product_card/product_card.xml',
-            'ai_agent/static/src/components/product_card/product_card.css',
+            #'ai_agent/static/src/components/product_card/product_card.css',
         ],
     },
     'installable': True,
