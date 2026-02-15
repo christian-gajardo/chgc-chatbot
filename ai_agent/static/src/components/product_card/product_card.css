@@ -37,7 +37,6 @@
 .o_ai_card_title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--odoo-text-main);
     margin-bottom: 8px;
     text-align: center;
 }
@@ -54,7 +53,6 @@
 .o_ai_card_price {
     font-weight: bold;
     color: var(--odoo-purple);
-    /* Color corporativo para el precio */
     font-size: 1.1rem;
 }
 
