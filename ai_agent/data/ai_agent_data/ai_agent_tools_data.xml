@@ -8,7 +8,7 @@
             <field name="code">
 
 if product_name:
-    ai['result'] = model.get_product_stock(product_name=product_name)
+    ai['result'] = model.get_product_detail(product_name=product_name)
 else:
     ai['result'] = "No se recibió el nombre del producto para consultar."
 
