@@ -11,7 +11,7 @@
     "product_name": {
         "type": "string",
         "description": "Nombre o referencia del producto a buscar",
-        "length": 600
+        "maxLength": 600
     }
 },
 "required": ["product_name"]}
