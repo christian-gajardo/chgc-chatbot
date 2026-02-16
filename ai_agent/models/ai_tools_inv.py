@@ -24,5 +24,4 @@ class AiToolsInv(models.AbstractModel):
             "name": product.name,
             "qty": product.qty_available,
             "price": product.list_price,
-            "image_url": product.image_1920,
         }
