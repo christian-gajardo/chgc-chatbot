@@ -6,12 +6,7 @@
             <field name="model_id" ref="model_ai_tools_inv"/>
             <field name="state">code</field>
             <field name="code">
-
-if product_name:
-    ai['result'] = model.get_product_detail(product_name=product_name)
-else:
-    ai['result'] = "No se recibió el nombre del producto para consultar."
-
+                action = model.get_product_stock()
             </field>
             <field name="use_in_ai" eval="True"/>
         </record>
