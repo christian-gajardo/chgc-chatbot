@@ -7,9 +7,9 @@ class AiToolsInv(models.AbstractModel):
     @api.model
     def get_product_detail(self, product_name):
         """
-        Consulta el stock disponible de un producto por su nombre.
+        Consulta el detalle de un producto por su nombre.
         :param str product_name: Nombre o referencia del producto a buscar.
-        :return: Dict con el stock y el ID del producto para A2UI.
+        :return: Dict con el detalle del producto para A2UI.
         """
         product = self.env['product.product'].search([
             ('name', 'ilike', product_name)

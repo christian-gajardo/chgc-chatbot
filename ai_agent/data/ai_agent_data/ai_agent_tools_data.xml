@@ -7,7 +7,7 @@
             <field name="state">code</field>
             <field name="code">
                 if model.product_name:
-                    ai['result'] = model.get_product_stock(product_name=kwargs.get('product_name'))
+                    ai['result'] = model.get_product_detail(product_name=kwargs.get('product_name'))
                 else:
                     ai['result'] = "No se encontro el producto."
             </field>
