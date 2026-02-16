@@ -18,13 +18,11 @@ class AiToolsInv(models.AbstractModel):
         if not product:
             return {"error": "Producto no encontrado"}
 
-        image_url = f"/web/image/product.product/{product.id}/image_128"
-
         return {
             "render_type": "product_card",
             "id": product.id,
             "name": product.name,
             "qty": product.qty_available,
             "price": product.list_price,
-            "image_url": image_url,
+            "image_url": product.image_1920,
         }

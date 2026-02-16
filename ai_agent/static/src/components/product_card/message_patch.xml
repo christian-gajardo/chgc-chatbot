@@ -1,9 +1,0 @@
-<templates xml:space="preserve">
-    <t t-inherit="mail.Message" t-inherit-mode="extension">
-        <xpath expr="//*[contains(@class, 'o-mail-Message-content')]" position="inside">
-            <t t-if="message.aiData">
-                <AIProductCard message="message"/>
-            </t>
-        </xpath>
-    </t>
-</templates>
