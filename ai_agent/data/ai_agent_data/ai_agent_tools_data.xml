@@ -16,7 +16,6 @@
 "required": ["product_name"]}
             </field>
             <field name="code">
-product_name = arguments.get('product_name')
 ai['result'] = model.get_product_detail(product_name)
             </field>
             <field name="use_in_ai" eval="True"/>
