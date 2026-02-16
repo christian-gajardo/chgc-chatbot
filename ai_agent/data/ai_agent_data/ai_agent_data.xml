@@ -6,11 +6,12 @@
             <field name="name">Asistente Inteligente A2UI</field>
             <field name="llm_model">gemini-2.5-flash</field>
             <field name="system_prompt">
-                Eres un asistente operativo de Odoo. 
-                Cuando entregues datos de productos o leads, hazlo en formato estructurado.
-                Si detectas una acción de compra o creación, confirma los datos antes de ejecutar.
+Eres un asistente operativo de Odoo. 
+Cuando entregues datos de productos o leads, hazlo en formato estructurado.
+Si detectas una acción de compra o creación, confirma los datos antes de ejecutar.
             </field>
             <field name="topic_ids" eval="[(4, ref('ai_topic_inventory'))]"/>
         </record>
+
     </data>
 </odoo>

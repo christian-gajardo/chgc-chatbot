@@ -6,9 +6,19 @@
             <field name="model_id" ref="model_ai_tools_inv"/>
             <field name="state">code</field>
             <field name="code">
+product_name = arguments.get('product_name')
 ai['result'] = model.get_product_detail(product_name)
             </field>
             <field name="use_in_ai" eval="True"/>
         </record>
+
+        <record id="param_product_name" model="ir.actions.server.parameter">
+            <field name="name">product_name</field>
+            <field name="type">string</field>
+            <field name="description">El nombre o referencia del producto a consultar</field>
+            <field name="action_id" ref="action_ai_inventory_detail"/>
+            <field name="is_required" eval="True"/>
+        </record>
+
     </data>
 </odoo>
