@@ -6,10 +6,9 @@
             <field name="model_id" ref="model_ai_tools_inv"/>
             <field name="state">code</field>
             <field name="code">
-if model.product_name:
-    ai['result'] = model.get_product_detail(product_name=kwargs.get('product_name'))
-else:
-    ai['result'] = "No se encontro el producto."
+
+ai['result'] = model.get_product_detail(product_name=kwargs.get('product_name'))
+
             </field>
             <field name="use_in_ai" eval="True"/>
         </record>
