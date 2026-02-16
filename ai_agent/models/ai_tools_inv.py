@@ -5,7 +5,7 @@ class AiToolsInv(models.AbstractModel):
     _description = 'Herramientas de Inventario para Gemini'
 
     @api.model
-    def get_product_stock(self, product_name):
+    def get_product_detail(self, product_name):
         """
         Consulta el stock disponible de un producto por su nombre.
         :param str product_name: Nombre o referencia del producto a buscar.
@@ -19,9 +19,9 @@ class AiToolsInv(models.AbstractModel):
             return {"error": "Producto no encontrado"}
 
         return {
+            "render_type": "product_card",
             "id": product.id,
             "name": product.name,
             "qty": product.qty_available,
             "price": product.list_price,
-            "render_type": "product_card"  
         }

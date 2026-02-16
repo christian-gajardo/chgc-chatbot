@@ -5,19 +5,19 @@
             <field name="name">Gestión de Inventario</field>
             <field name="description">Herramientas para consultar stock y productos.</field>
             <field name="instructions">
-                1. BÚSQUEDA GLOBAL: Usa 'AI: Search' para consultas generales. 
+                1. BÚSQUEDA GLOBAL: Usa 'ir_actions_server_search' para consultas generales. 
                 CAMPOS VÁLIDOS para 'product.product': 'display_name', 'list_price' (no usar 'price'), 'qty_available', 'default_code'.
 
-                2. DETALLE DE PRODUCTO: Usa 'Consultar Stock' solo para un producto específico. 
+                2. DETALLE DE PRODUCTO: Usa 'action_ai_inventory_detail' solo para un producto específico y en caso de ser varios primero busca los nombres con 'ir_actions_server_search'. 
                 Pasa el nombre en el parámetro 'product_name'.
 
-                3. RENDERIZADO OBLIGATORIO: Si usas 'Consultar Stock', la respuesta vendrá en formato JSON con 'render_type': 'product_card'. 
+                3. RENDERIZADO OBLIGATORIO: Si usas 'action_ai_inventory_detail', la respuesta vendrá en formato JSON con 'render_type': 'product_card'. 
                 ¡PROHIBIDO responder con texto plano! Debes usar los datos del JSON para mostrar la tarjeta visual de Odoo. 
                 Si no recibes el JSON esperado, indica que hubo un error de formato.
             </field>
             <field name="tool_ids" eval="[
             
-            (4, ref('action_ai_inventory_stock')),
+            (4, ref('action_ai_inventory_detail')),
             
             (4, ref('ai.ir_actions_server_search'))
             

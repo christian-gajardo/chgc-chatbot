@@ -1,19 +1,22 @@
 /** @odoo-module **/
 import { Component } from "@odoo/owl";
-import { registry } from "@web/core/registry";
 
 export class AIProductCard extends Component {
     static template = "ai_agent.ProductCard";
 
     setup() {
-        // Aquí puedes añadir lógica para botones de "Añadir al carrito" o "Ver producto"
-        this.product = this.props.message.payload;
+        // Obtenemos los datos ya parseados desde el getter del mensaje
+        this.product = this.props.message.aiData;
     }
 
     onViewProduct() {
-        // Lógica para abrir el formulario del producto en Odoo
+        // Para abrir el formulario, puedes usar el servicio 'action'
+        this.env.services.action.doAction({
+            type: 'ir.actions.act_window',
+            res_model: 'product.product',
+            res_id: this.product.id,
+            views: [[false, 'form']],
+            target: 'current',
+        });
     }
 }
-
-// Registramos el componente en el sistema de chat para que sepa usarlo
-registry.category("ai_custom_renderers").add("product_card", AIProductCard);
