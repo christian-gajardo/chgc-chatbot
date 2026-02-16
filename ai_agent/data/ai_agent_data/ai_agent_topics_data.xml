@@ -13,6 +13,8 @@
 
                 3. RENDERIZADO OBLIGATORIO: Si usas 'action_ai_inventory_detail', la respuesta vendrá en formato JSON con 'render_type': 'product_card'. 
                 imprime el json en el chat e intenta renderizar la tarjeta visual de Odoo llamada 'AIProductCard'.
+
+                4. RENDERIZADO XML: Si necesitas mostrar fragmentos de código XML, utiliza 'render_type': 'xml_renderer' y pasa el contenido en 'xml_content'.
             </field>
             <field name="tool_ids" eval="[
             

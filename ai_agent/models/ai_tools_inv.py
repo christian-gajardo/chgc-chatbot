@@ -25,3 +25,20 @@ class AiToolsInv(models.AbstractModel):
             "qty": product.qty_available,
             "price": product.list_price,
         }
+
+    @api.model
+    def get_xml_example(self):
+        """
+        Retorna un ejemplo de XML para probar el renderizado.
+        """
+        xml_content = """<odoo>
+    <data>
+        <record id="example_id" model="product.product">
+            <field name="name">Producto de Ejemplo</field>
+        </record>
+    </data>
+</odoo>"""
+        return {
+            "render_type": "xml_renderer",
+            "xml_content": xml_content,
+        }
