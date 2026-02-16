@@ -10,7 +10,8 @@
 "properties": {
     "product_name": {
         "type": "string",
-        "description": "Nombre o referencia del producto a buscar"
+        "description": "Nombre o referencia del producto a buscar",
+        "length": 600
     }
 },
 "required": ["product_name"]}
