@@ -15,7 +15,7 @@
                         <t t-esc="product.price"/>
                     </span>
                     <small class="o_ai_card_stock">
-                        Stock: <t t-esc="product.stock"/>
+                        Stock: <t t-esc="product.qty"/>
                     </small>
                 </div>
                 
