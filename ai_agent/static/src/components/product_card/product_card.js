@@ -27,4 +27,4 @@ export class AIProductCard extends Component {
 }
 
 // Es vital registrarlo para que otros componentes puedan referenciarlo por nombre si es necesario
-registry.category("components").add("AIProductCard", AIProductCard);
+registry.category("ai_custom_renderers").add("product_card", AIProductCard);
