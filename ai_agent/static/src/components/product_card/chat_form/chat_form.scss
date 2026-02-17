@@ -1,0 +1,13 @@
+.o_ai_form_container {
+    max-width: 300px;
+    border-left: 4px solid #714B67;
+
+    label {
+        color: #666;
+    }
+
+    input:focus {
+        border-color: #714B67;
+        box-shadow: none;
+    }
+}
