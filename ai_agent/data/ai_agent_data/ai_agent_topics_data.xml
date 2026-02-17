@@ -24,9 +24,7 @@ Ej:
         "stock": 10
     }
 }
-
-4. RENDERIZADO XML: Para mostrar los datos del json en el chat, debes usar 'render_type': 'xml_renderer' y pasar el contenido en 'xml_content' con el XML renderer de la tarjeta de producto.
-            
+  
             </field>
             <field name="tool_ids" eval="[
             
