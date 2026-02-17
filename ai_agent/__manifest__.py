@@ -23,6 +23,10 @@
             'ai_agent/static/src/components/product_card/product_card.xml',
             'ai_agent/static/src/components/product_card/product_card.js',
         ],
+        'web.assets_frontend': [
+            'ai_agent/static/src/js/website_chat.js',
+            'ai_agent/static/src/xml/chatbot_template.xml',
+        ],
     },
     'installable': True,
     'application': True,
