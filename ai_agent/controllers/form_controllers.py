@@ -5,7 +5,7 @@ import json
 
 class AiFormController(http.Controller):
 
-    @http.route('/a2ui/get_dynamic_form', type='json', auth='user')
+    @http.route('/a2ui/get_dynamic_form', type='jsonrpc', auth='user')
     def get_dynamic_form(self, prompt):
         """
         Endpoint que procesa la petición del usuario y devuelve la 
