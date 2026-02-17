@@ -22,9 +22,9 @@
         'web.assets_backend': [
             'ai_agent/static/src/components/product_card/product_card.xml',
             'ai_agent/static/src/components/product_card/product_card.js',
-            'ai_agent/static/src/components/product_card/chat_form/chat_form.xml',
-            'ai_agent/static/src/components/product_card/chat_form/chat_form.js',
-            'ai_agent/static/src/components/product_card/chat_form/chat_form.scss',
+            'ai_agent/static/src/components/chat_form/chat_form.xml',
+            'ai_agent/static/src/components/chat_form/chat_form.js',
+            'ai_agent/static/src/components/chat_form/chat_form.scss',
         ],
         'web.assets_frontend': [
             'ai_agent/static/src/js/website_chat.js',
