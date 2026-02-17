@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <t t-name="mi_modulo_a2ui.ChatForm">
+    <t t-name="ai_agent.ChatForm">
         <div class="o_ai_form_container shadow-sm p-3 m-2 bg-white rounded border">
             <t t-if="!state.submitted">
                 <h6 class="border-bottom pb-2">Formulario de IA</h6>

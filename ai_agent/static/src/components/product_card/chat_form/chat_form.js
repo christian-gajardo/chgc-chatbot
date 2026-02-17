@@ -2,7 +2,7 @@
 import { Component, useState } from "@odoo/owl";
 
 export class ChatForm extends Component {
-    static template = "mi_modulo_a2ui.ChatForm";
+    static template = "ai_agent.ChatForm";
 
     setup() {
         const initialData = {};
