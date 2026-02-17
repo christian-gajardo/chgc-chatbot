@@ -1,0 +1,156 @@
+/* Encapsulamos todo en el contenedor raíz del componente */
+.o_my_chatbot_root {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: inherit;
+    /* Hereda la tipografía de Odoo */
+}
+
+/* Botón flotante */
+.lod-chatbot-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+}
+
+.lod-chatbot-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* Ventana de Chat controlada por Owl (t-if o clases) */
+.lod-chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 380px;
+    height: 550px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Animación de entrada */
+    animation: windowFadeUp 0.3s ease-out;
+}
+
+@keyframes windowFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.lod-chatbot-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Área de Mensajes */
+.lod-chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f7f8fa;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lod-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+}
+
+/* Mensaje del Usuario (Assistant en Odoo suele ser bot) */
+.lod-message-user {
+    align-self: flex-end;
+}
+
+.lod-message-user .lod-message-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px 15px 2px 15px;
+}
+
+/* Mensaje del Bot */
+.lod-message-assistant {
+    align-self: flex-start;
+}
+
+.lod-message-assistant .lod-message-content {
+    background: white;
+    color: #333;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px 15px 15px 2px;
+}
+
+.lod-message-content {
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* Input y Footer */
+.lod-chatbot-input-container {
+    display: flex;
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #eee;
+    gap: 10px;
+}
+
+.lod-chatbot-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    outline: none;
+}
+
+.lod-chatbot-input:focus {
+    border-color: #667eea;
+}
+
+/* Componentes Visuales (A2UI) */
+.lod-component {
+    margin-top: 8px;
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 480px) {
+    .lod-chatbot-window {
+        width: calc(100vw - 40px);
+        height: 80vh;
+        bottom: 70px;
+    }
+}
