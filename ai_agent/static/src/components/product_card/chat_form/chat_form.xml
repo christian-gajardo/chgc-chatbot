@@ -1,0 +1,25 @@
+<t t-name="mi_modulo_a2ui.ChatForm">
+    <div class="o_ai_generated_form p-3 border rounded bg-light">
+        <t t-if="!state.isSubmitted">
+            <h5>Formulario Generado</h5>
+            <form t-on-submit.prevent="_onSubmitForm">
+                <div t-foreach="props.fields" t-as="field" t-key="field.name" class="mb-3">
+                    <label t-att-for="field.name" class="form-label" t-esc="field.label"/>
+                    <input 
+                        t-att-type="field.type || 'text'" 
+                        t-att-name="field.name"
+                        class="form-control"
+                        t-on-input="onInputChange"
+                        t-att-value="state.formData[field.name]"
+                        required="required"/>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Enviar Datos</button>
+            </form>
+        </t>
+        <t t-else="">
+            <div class="alert alert-success">
+                ¡Gracias! Los datos han sido procesados.
+            </div>
+        </t>
+    </div>
+</t>
