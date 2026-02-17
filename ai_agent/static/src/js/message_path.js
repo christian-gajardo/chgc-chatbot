@@ -1,23 +1,24 @@
 /** @odoo-module **/
-import { ChatForm } from "@ai_agent/components/chat_form/chat_form"; // RECUERDA: Cambia @tu_modulo por el nombre real de tu carpeta
+import { ChatForm } from "@ai_agent/components/chat_form/chat_form";
 import { Component, useState, xml } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 
 export class MessagePath extends Component {
     static components = { ChatForm };
 
-    // Definimos el XML directamente aquí para que OWL sepa cómo dibujar los mensajes
+    // Este template detecta si el mensaje es un formulario o texto
     static template = xml`
-        <div class="o_a2ui_chat_container">
-            <div t-foreach="state.messages" t-as="msg" t-key="msg.id" class="o_chat_bubble">
-                <strong t-esc="msg.author"/>:
-                
-                <t t-if="msg.is_form">
-                    <ChatForm fields="msg.fields"/>
-                </t>
-                <t t-else="">
-                    <span t-esc="msg.body"/>
-                </t>
+        <div class="o_ai_chat_thread">
+            <div t-foreach="state.messages" t-as="msg" t-key="msg.id" class="mb-3 p-3 border-bottom">
+                <strong t-esc="msg.author" class="text-primary"/>
+                <div class="mt-2">
+                    <t t-if="msg.is_form">
+                        <ChatForm fields="msg.fields" onFormSubmit="(data) => this._onSaveData(data)"/>
+                    </t>
+                    <t t-else="">
+                        <span t-esc="msg.body"/>
+                    </t>
+                </div>
             </div>
         </div>
     `;
@@ -30,29 +31,24 @@ export class MessagePath extends Component {
     }
 
     async onSendMessage(userInput) {
-        try {
-            const response = await this.rpc("/a2ui/get_dynamic_form", { prompt: userInput });
+        // Llamada al controlador que ya tienes en form_controller.py
+        const response = await this.rpc("/a2ui/get_dynamic_form", { prompt: userInput });
 
-            let processedMessage;
-            if (typeof response === 'object' && response.action === "render_form") {
-                processedMessage = {
-                    id: Date.now(),
-                    is_form: true,
-                    fields: response.fields,
-                    author: "Asistente Inteligente A2UI"
-                };
-            } else {
-                processedMessage = {
-                    id: Date.now(),
-                    is_form: false,
-                    body: response.message || JSON.stringify(response),
-                    author: "Asistente Inteligente A2UI"
-                };
-            }
+        let newMessage = { id: Date.now(), author: "Asistente A2UI" };
 
-            this.state.messages.push(processedMessage);
-        } catch (error) {
-            console.error("Error en el RPC:", error);
+        if (response && response.action === "render_form") {
+            newMessage.is_form = true;
+            newMessage.fields = response.fields;
+        } else {
+            newMessage.is_form = false;
+            newMessage.body = response.message || JSON.stringify(response);
         }
+
+        this.state.messages.push(newMessage);
+    }
+
+    _onSaveData(formData) {
+        console.log("Datos recibidos del formulario:", formData);
+        // Aquí iría la lógica para guardar en Odoo
     }
 }
