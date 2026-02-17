@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="my_module.ChatbotTemplate">
+        <div class="lod-chatbot-container">
+            <div class="lod-chatbot-toggle" t-on-click="toggleChat">
+                <span class="lod-chatbot-icon">💬</span>
+            </div>
+            
+            <div t-if="state.isOpen" class="lod-chatbot-window">
+                <div class="lod-chatbot-header">
+                    <h3>Asistente Virtual</h3>
+                    <button t-on-click="toggleChat">✕</button>
+                </div>
+                <div class="lod-chatbot-messages">
+                    <t t-foreach="state.messages" t-as="msg" t-key="msg_index">
+                        <div t-attf-class="lod-message lod-message-{{ msg.role }}">
+                            <t t-out="msg.content"/>
+                        </div>
+                    </t>
+                </div>
+                <div class="lod-chatbot-input">
+                    <input t-ref="chatInput" t-on-keydown="(e) => e.key === 'Enter' &amp;&amp; sendMessage()"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

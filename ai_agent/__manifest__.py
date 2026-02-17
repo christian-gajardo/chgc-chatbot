@@ -22,8 +22,6 @@
         'web.assets_backend': [
             'ai_agent/static/src/components/product_card/product_card.xml',
             'ai_agent/static/src/components/product_card/product_card.js',
-
-            'ai_agent/static/src/js/a2ui_service.js',
         ],
     },
     'installable': True,
