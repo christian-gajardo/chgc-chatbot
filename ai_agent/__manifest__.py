@@ -25,8 +25,7 @@
         ],
         'web.assets_frontend': [
             'ai_agent/static/src/js/website_chat.js',
-            'ai_agent/static/src/xml/chatbot_template.xml',
-            'ai_agent/static/src/css/website_chat.css',
+            'ai_agent/static/src/css/chatbot_style.css',
         ],
     },
     'installable': True,
