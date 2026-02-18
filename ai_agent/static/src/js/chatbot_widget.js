@@ -78,20 +78,13 @@ import { rpc } from "@web/core/network/rpc_service";
             scrollToBottom();
 
             try {
-
-                const agentId = await rpc("/web/dataset/call_kw", {
-                    model: "ir.model.data",
-                    method: "_xmlid_to_res_id",
-                    args: ["ai_agent.ai_agent_a2ui"], // REEMPLAZA 'tu_modulo' por el nombre técnico de tu addon
-                });
-
                 // LLAMADA DIRECTA AL AGENTE DE ODOO 19
                 const response = await rpc("/web/dataset/call_kw", {
                     model: "ai.agent",
                     method: "chat_process", // Método estándar para procesar chats en Odoo 19
                     args: [],
                     kwargs: {
-                        agent_id: agentId, // Reemplazar por el ID de tu agente en Odoo
+                        agent_id: 1, // Reemplazar por el ID de tu agente en Odoo
                         message: message,
                     }
                 });
