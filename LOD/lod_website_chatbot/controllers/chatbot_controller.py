@@ -14,9 +14,21 @@ class ChatbotWebController(http.Controller):
         try:
             if not message or len(message.strip()) < 3:
                 return {'success': False, 'error': 'Por favor escribe una pregunta más específica'}
-        
             
-
+            # Obtener API Key
+            api_key = request.env['ir.config_parameter'].sudo().get_param('construction_materials.api_key')
+            
+            if not api_key:
+                _logger.error("API Key de Gemini no configurada")
+                return {'success': False, 'error': 'Chatbot no disponible'}
+            
+            # Verificar librería
+            try:
+                import google.generativeai as genai
+            except ImportError:
+                _logger.error("Librería google-generativeai no instalada")
+                return {'success': False, 'error': 'Servicio no disponible'}
+            
             # ==============================================================================================
             # 1. RETRIEVAL (RECUPERACIÓN)
             # ==============================================================================================
@@ -80,6 +92,9 @@ class ChatbotWebController(http.Controller):
             except:
                 pass
             
+            # Configurar Gemini
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel('gemini-flash-latest')
             
             # ==============================================================================================
             # 2. AUGMENTATION (AUMENTACIÓN)
@@ -132,22 +147,15 @@ IMPORTANTE: Responde SOLO el JSON, sin markdown, sin backticks, sin texto adicio
             # JUNTOS con los datos del inventario y contenido web que le acabamos de pasar, y "genera" 
             # una respuesta en lenguaje natural basada en esa información exacta.
 
-            # Obtener el agente definido en XML
-            agent = request.env.ref('ai_agent.ai_agent_a2ui').sudo()
+            response = model.generate_content(prompt)
 
-            if not agent:
-                return {'success': False, 'error': 'Agente no configurado'}
+            if not response or not response.text:
+                raise Exception("Sin respuesta")
 
-            # Generar respuesta usando el agente nativo de Odoo
-            ai_result = agent.generate_response(prompt)
+            _logger.info(f"Chatbot respondió: '{message[:50]}'")
 
-            if not ai_result:
-                raise Exception("Sin respuesta del agente")
-
-            raw_text = ai_result.strip()
-
-
-
+            # Parsear JSON de Gemini
+            raw_text = response.text.strip()
             try:
                 ai_response = json.loads(raw_text)
                 component_type = ai_response.get('type', 'text')

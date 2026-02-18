@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 // funcion que se ejecuta al cargar el archivo, sirve para cargar el chatbot. 
-(function () {
+(function() {
     'use strict';
 
     if (document.readyState === 'loading') {
@@ -9,9 +9,9 @@
     } else {
         initChatbot();
     }
-    // funcion para cargar el chatbot , se define como una funcion anonima para que no se ejecute 
-    // al cargar el archivo solo lo ejecuta cuando se llama
-    // html para cargar el chatbot 
+   // funcion para cargar el chatbot , se define como una funcion anonima para que no se ejecute 
+   // al cargar el archivo solo lo ejecuta cuando se llama
+   // html para cargar el chatbot 
     function initChatbot() {
         const chatbotHTML = `
             <div id="lod-chatbot" class="lod-chatbot-closed">
@@ -53,7 +53,7 @@
         `;
         // inserta el chatbot en el body usando insertAdjacentHTML
         document.body.insertAdjacentHTML('beforeend', chatbotHTML);
-
+        
         // selecciona los elementos del chatbot , usando getElementById estos elementos estan definidos en el html. 
         const chatbot = document.getElementById('lod-chatbot');
         const toggleBtn = document.getElementById('lod-chatbot-toggle');
@@ -62,7 +62,7 @@
         const input = document.getElementById('lod-chatbot-input');
         const sendBtn = document.getElementById('lod-chatbot-send');
         const typingIndicator = document.getElementById('lod-chatbot-typing');
-
+        
         // agrega los eventos a los botones, usando addEventListener
         toggleBtn.addEventListener('click', toggleChat);
         closeBtn.addEventListener('click', toggleChat);
@@ -70,7 +70,7 @@
         input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
         });
-
+ 
         // funciones para el chatbot, su funcion es controlar el chatbot. toggleChat es para abrir y cerrar el chatbot
         function toggleChat() {
             chatbot.classList.toggle('lod-chatbot-closed'); // toggle para cerrar y abrir el chatbot
@@ -80,8 +80,8 @@
             }
         }
         // funcion para enviar el mensaje, usando async para que sea asincrona
-        // esta funcion asincrona envia el mensaje al chatbot y espera la respuesta. 
-        async function sendMessage() {
+       // esta funcion asincrona envia el mensaje al chatbot y espera la respuesta. 
+       async function sendMessage() {
             const message = input.value.trim(); // quita los espacios en blanco al inicio y al final del mensaje
             if (!message) return; // si el mensaje esta vacio no hace nada
 
@@ -90,19 +90,19 @@
 
             typingIndicator.style.display = 'flex'; // muestra el indicador de typing
             scrollToBottom(); // scrollea al final del chat
-
+            
             // envia el mensaje al chatbot
             try {
                 const response = await fetch('/api/chatbot/ask', { // ruta de la api modulo python  
                     method: 'POST', // metodo post
-                    headers: { 'Content-Type': 'application/json' }, // tipo de contenido
+                    headers: {'Content-Type': 'application/json'}, // tipo de contenido
                     body: JSON.stringify({ // envia el mensaje en formato json
                         jsonrpc: "2.0", // version de jsonrpc
                         method: "call", // metodo de llamada
-                        params: { message: message }//parametros del mensaje
+                        params: {message: message}//parametros del mensaje
                     })
                 });
-                // recibe la respuesta del chatbot
+              // recibe la respuesta del chatbot
                 const data = await response.json();
                 typingIndicator.style.display = 'none'; // oculta el indicador de typing
                 // agrega el mensaje del chatbot
@@ -112,7 +112,7 @@
                     const errorMsg = data.result?.error || 'Error al procesar tu consulta';
                     addMessage(errorMsg, 'error');
                 }
-                // maneja el error
+             // maneja el error
             } catch (error) {
                 console.error('Error:', error); // muestra el error en la consola
                 typingIndicator.style.display = 'none'; // oculta el indicador de typing
@@ -147,7 +147,7 @@
             }
             // Renderizar componente visual si hay data
             if (payload.data) {
-                switch (type) {
+                switch(type) {
                     case 'material_table':
                         renderMaterialTable(payload.data);
                         break;

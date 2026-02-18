@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Volumen Construcción: m³ -->
+        <record id="uom_m3" model="uom.uom">
+            <field name="name">m³</field>
+            <field name="relative_factor">1</field>
+        </record>
+
+        <!-- Superficie: m² -->
+        <record id="uom_m2" model="uom.uom">
+            <field name="name">m²</field>
+            <field name="relative_factor">1</field>
+        </record>
+
+        <!-- Envase: Saco -->
+        <record id="uom_saco" model="uom.uom">
+            <field name="name">Saco</field>
+            <field name="relative_factor">1</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Hormigón H30 -->
+        <record id="material_hormigon_h30" model="product.template">
+            <field name="name">Hormigón H30</field>
+            <field name="default_code">HOR-H30</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom_m3"/>
+            <field name="x_construction_category">hormigon</field>
+            <field name="x_minimum_stock">10.0</field>
+            <field name="x_warehouse_location">Bodega Principal - Zona A</field>
+            <field name="x_construction_supplier">Hormigones del Pacífico</field>
+        </record>
+
+        <!-- Fierro A630-420H Ø12mm -->
+        <record id="material_fierro_a630" model="product.template">
+            <field name="name">Fierro A630-420H Ø12mm</field>
+            <field name="default_code">FIE-A630-12</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom.product_uom_kgm"/>
+            <field name="x_construction_category">fierro</field>
+            <field name="x_minimum_stock">500.0</field>
+            <field name="x_warehouse_location">Bodega Principal - Zona B</field>
+            <field name="x_construction_supplier">Cintac</field>
+        </record>
+
+        <!-- Fierro A630-420H Ø8mm -->
+        <record id="material_fierro_a630_8" model="product.template">
+            <field name="name">Fierro A630-420H Ø8mm</field>
+            <field name="default_code">FIE-A630-8</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom.product_uom_kgm"/>
+            <field name="x_construction_category">fierro</field>
+            <field name="x_minimum_stock">300.0</field>
+            <field name="x_warehouse_location">Bodega Principal - Zona B</field>
+            <field name="x_construction_supplier">Cintac</field>
+        </record>
+
+        <!-- Moldaje Fenólico 15mm -->
+        <record id="material_moldaje" model="product.template">
+            <field name="name">Moldaje Fenólico 15mm</field>
+            <field name="default_code">MOL-FEN-15</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom_m2"/>
+            <field name="x_construction_category">moldaje</field>
+            <field name="x_minimum_stock">80.0</field>
+            <field name="x_warehouse_location">Bodega Secundaria</field>
+            <field name="x_construction_supplier">Maderas del Sur</field>
+        </record>
+
+        <!-- Cemento Melón Especial -->
+        <record id="material_cemento" model="product.template">
+            <field name="name">Cemento Melón Especial</field>
+            <field name="default_code">CEM-MEL-ESP</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom_saco"/>
+            <field name="x_construction_category">cemento</field>
+            <field name="x_minimum_stock">50.0</field>
+            <field name="x_warehouse_location">Bodega Principal - Zona C</field>
+            <field name="x_construction_supplier">Cemento Melón</field>
+        </record>
+
+        <!-- Arena Gruesa -->
+        <record id="material_arena" model="product.template">
+            <field name="name">Arena Gruesa</field>
+            <field name="default_code">ARE-GRU</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom_m3"/>
+            <field name="x_construction_category">arena</field>
+            <field name="x_minimum_stock">8.0</field>
+            <field name="x_warehouse_location">Patio Exterior</field>
+            <field name="x_construction_supplier">Áridos del Maipo</field>
+        </record>
+
+        <!-- Alambre Recocido N°18 -->
+        <record id="material_alambre" model="product.template">
+            <field name="name">Alambre Recocido N°18</field>
+            <field name="default_code">ALA-REC-18</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom.product_uom_kgm"/>
+            <field name="x_construction_category">herramientas</field>
+            <field name="x_minimum_stock">10.0</field>
+            <field name="x_warehouse_location">Bodega Herramientas</field>
+        </record>
+
+        <!-- Separadores Plásticos -->
+        <record id="material_separadores" model="product.template">
+            <field name="name">Separadores Plásticos</field>
+            <field name="default_code">SEP-PLA</field>
+            <field name="type">consu</field>
+            <field name="is_storable" eval="True"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="x_construction_category">herramientas</field>
+            <field name="x_minimum_stock">200.0</field>
+            <field name="x_warehouse_location">Bodega Herramientas</field>
+        </record>
+
+    </data>
+</odoo>
