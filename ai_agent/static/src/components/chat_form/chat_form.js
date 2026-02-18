@@ -41,3 +41,5 @@ export class ChatForm extends Component {
         }
     }
 }
+
+registry.category("components").add("ChatForm", ChatForm);
