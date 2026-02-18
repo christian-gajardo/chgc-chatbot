@@ -1,43 +1,25 @@
 /** @odoo-module **/
+import { Message } from "@mail/core/common/message";
 import { patch } from "@web/core/utils/patch";
-import { Composer } from "@mail/core/common/composer"; // Ruta correcta en v19
-import { useService } from "@web/core/utils/hooks";
 
-patch(Composer.prototype, {
+patch(Message.prototype, {
     setup() {
         super.setup();
-        this.rpc = useService("rpc");
-        this.notification = useService("notification");
-    },
+        // Verificamos si el body del mensaje contiene la estructura de tu prompt
+        const body = this.props.message.body || "";
+        this.isA2UIForm = body.includes('action": "render_form"');
 
-    async postMessage() {
-        const messageText = this.props.composer.text; // Captura el texto antes de enviarlo
-
-        // Ejecutamos el envío original de Odoo
-        const result = await super.postMessage(...arguments);
-
-        // Si el usuario pide un formulario, activamos la IA
-        if (messageText.toLowerCase().includes("crear") || messageText.toLowerCase().includes("formulario")) {
+        if (this.isA2UIForm) {
             try {
-                const response = await this.rpc("/web/dataset/call_kw", {
-                    model: "ai.agent",
-                    method: "chat_process",
-                    args: [],
-                    kwargs: {
-                        agent_id: 1, // Tu ID de Agente A2UI
-                        message: messageText,
-                    }
-                });
-
-                if (response && response.action === "render_form") {
-                    // Aquí es donde "inyectas" el formulario en la UI
-                    // Podrías usar un bus de eventos o guardar el JSON en el thread
-                    console.log("Formulario detectado:", response.fields);
+                // Extraemos el JSON puro del texto
+                const jsonMatch = body.match(/\{.*\}/s);
+                if (jsonMatch) {
+                    this.a2uiFormData = JSON.parse(jsonMatch[0]);
                 }
-            } catch (err) {
-                console.error("Error llamando a la IA", err);
+            } catch (e) {
+                console.error("Error parseando formulario IA:", e);
+                this.isA2UIForm = false;
             }
         }
-        return result;
     }
 });

@@ -30,6 +30,7 @@
         'web.assets_frontend': [
             'ai_agent/static/src/js/chatbot_widget.js',
             'ai_agent/static/src/js/message_path.js',
+            'ai_agent/static/src/xml/message_path.xml',
             'ai_agent/static/src/css/chatbot_style.css',
         ],
     },
