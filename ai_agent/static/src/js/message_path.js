@@ -33,18 +33,36 @@ export class MessagePath extends Component {
     }
 
     async onSendMessage(userInput) {
-        const response = await this.rpc("/a2ui/execute_agent", { prompt: userInput });
+        // 1. Llamada nativa de Odoo
+        const response = await this.rpc("/ai/generate_response", { prompt: userInput });
 
-        let newMessage = { id: Date.now() };
+        let newMessage = { id: Date.now(), author: "Asistente A2UI" };
 
-        // Verificamos si la IA pidió un componente y si lo tenemos en el mapa
-        if (response.status === "success" && COMPONENT_MAP[response.component]) {
+        // 2. Intentar parsear si la respuesta viene como String (común en respuestas de IA)
+        let data = response;
+        if (typeof response === "string") {
+            try {
+                // Intentamos limpiar posibles bloques de markdown ```json ... ```
+                const cleanJson = response.replace(/```json|```/g, "").trim();
+                data = JSON.parse(cleanJson);
+            } catch (e) {
+                data = { status: "text" };
+            }
+        }
+
+        // 3. Validar si es un componente conocido en tu COMPONENT_MAP
+        if (data && data.status === "success" && COMPONENT_MAP[data.component]) {
+            newMessage.is_form = true;
             newMessage.type = "component";
-            newMessage.component = COMPONENT_MAP[response.component];
-            newMessage.props = response.props;
+            newMessage.component = COMPONENT_MAP[data.component];
+            newMessage.props = {
+                ...data.props,
+                onFormSubmit: (formData) => this._onSaveData(formData)
+            };
         } else {
+            newMessage.is_form = false;
             newMessage.type = "text";
-            newMessage.body = response.message || "Entendido.";
+            newMessage.body = typeof response === "string" ? response : JSON.stringify(response);
         }
 
         this.state.messages.push(newMessage);

@@ -27,7 +27,7 @@ ESQUEMA DE SALIDA:
 ]
 }"
             </field>
-            <field name="topic_ids" eval="[(4, ref('ai_topic_inventory'))]"/>
+            <!--            <field name="topic_ids" eval="[(4, ref('ai_topic_inventory'))]"/>-->
         </record>
 
     </data>
