@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+from odoo import http
+from odoo.http import request
+
 class AiFormController(http.Controller):
 
     @http.route('/a2ui/execute_agent', type='jsonrpc', auth='user')
