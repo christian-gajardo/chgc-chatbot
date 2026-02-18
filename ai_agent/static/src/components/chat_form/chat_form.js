@@ -1,5 +1,6 @@
 /** @odoo-module **/
 import { Component, useState, onWillUpdateProps } from "@odoo/owl";
+import { registry } from "@web/core/registry";
 
 export class ChatForm extends Component {
     static template = "ai_agent.ChatForm";
