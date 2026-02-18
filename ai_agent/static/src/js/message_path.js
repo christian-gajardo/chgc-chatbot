@@ -8,6 +8,7 @@ const COMPONENT_MAP = {
     "ChatForm": ChatForm,
 };
 
+
 export class MessagePath extends Component {
     static components = { ChatForm }; // Deben estar registrados aquí también
 
@@ -47,7 +48,10 @@ export class MessagePath extends Component {
 
     setup() {
         this.rpc = useService("rpc");
-        this.state = useState({ messages: [] });
+        this.state = useState({
+            messages: [],
+            currentInput: "" // Necesario para capturar lo que escribes
+        });
     }
 
     async onSendMessage(userInput) {
