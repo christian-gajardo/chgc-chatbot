@@ -1,37 +1,31 @@
-# -*- coding: utf-8 -*-
-from odoo import http
-from odoo.http import request
-import json
-
 class AiFormController(http.Controller):
 
-    @http.route('/a2ui/get_dynamic_form', type='jsonrpc', auth='user')
-    def get_dynamic_form(self, prompt):
-        """
-        Endpoint que procesa la petición del usuario y devuelve la 
-        estructura del formulario generada por la IA.
-        """
-        # Instrucción de sistema optimizada para Gemini/IA
+    @http.route('/a2ui/execute_agent', type='jsonrpc', auth='user')
+    def execute_agent(self, prompt):
+        # 1. Definir instrucción de sistema (Catálogo de componentes)
         system_instruction = (
-            "Eres un generador de interfaces para Odoo 19. "
-            "Si el usuario pide un formulario, responde ÚNICAMENTE con un JSON: "
-            "{\"status\": \"success\", \"fields\": [{\"name\": \"ID\", \"label\": \"ETIQUETA\", \"type\": \"TIPO\"}]}. "
-            "Tipos permitidos: text, number, date, email."
+            "Eres un orquestador de UI. Responde ÚNICAMENTE en JSON. "
+            "Componentes disponibles: ['ChatForm']. "
+            "Si el usuario quiere registrar algo, usa 'ChatForm'. "
+            "Formato: {'status': 'success', 'component': 'ChatForm', 'props': {'fields': [...]}}"
         )
 
-        # Aquí llamas a tu función de integración con Gemini
-        # ai_response = self.env['ai.agent'].call_gemini(prompt, system_instruction)
+        # 2. Simulación de lógica de negocio
+        prompt_lower = prompt.lower()
         
-        # Simulación de respuesta para pruebas:
-        if "cliente" in prompt.lower():
-            mock_response = {
+        if "cliente" in prompt_lower or "registro" in prompt_lower:
+            return {
                 "status": "success",
-                "fields": [
-                    {"name": "customer_name", "label": "Nombre del Cliente", "type": "text"},
-                    {"name": "email", "label": "Correo", "type": "email"},
-                    {"name": "priority", "label": "Nivel de Urgencia (1-5)", "type": "number"}
-                ]
+                "component": "ChatForm",
+                "props": {
+                    "fields": [
+                        {"name": "name", "label": "Nombre Completo", "type": "text"},
+                        {"name": "email", "label": "Email", "type": "email"}
+                    ]
+                }
             }
-            return mock_response
-        
-        return {"status": "error", "message": "No se pudo interpretar el formulario."}
+
+        return {
+            "status": "error", 
+            "message": "No tengo un componente para esa solicitud aún."
+        }

@@ -3,52 +3,50 @@ import { ChatForm } from "@ai_agent/components/chat_form/chat_form";
 import { Component, useState, xml } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 
-export class MessagePath extends Component {
-    static components = { ChatForm };
+// Registro de componentes autorizados para la IA
+const COMPONENT_MAP = {
+    "ChatForm": ChatForm,
+};
 
-    // Este template detecta si el mensaje es un formulario o texto
+export class MessagePath extends Component {
+    static components = { ChatForm }; // Deben estar registrados aquí también
+
     static template = xml`
-        <div class="o_ai_chat_thread">
-            <div t-foreach="state.messages" t-as="msg" t-key="msg.id" class="mb-3 p-3 border-bottom">
-                <strong t-esc="msg.author" class="text-primary"/>
-                <div class="mt-2">
-                    <t t-if="msg.is_form">
-                        <ChatForm fields="msg.fields" onFormSubmit="(data) => this._onSaveData(data)"/>
-                    </t>
-                    <t t-else="">
+        <div class="o_ai_chat_thread p-3">
+            <div t-foreach="state.messages" t-as="msg" t-key="msg.id" class="mb-3">
+                <t t-if="msg.type === 'component'">
+                    <t t-component="msg.component" t-props="msg.props"/>
+                </t>
+                <t t-else="">
+                    <div class="p-3 bg-light rounded border">
+                        <strong class="text-primary d-block">Asistente:</strong>
                         <span t-esc="msg.body"/>
-                    </t>
-                </div>
+                    </div>
+                </t>
             </div>
         </div>
     `;
 
     setup() {
         this.rpc = useService("rpc");
-        this.state = useState({
-            messages: []
-        });
+        this.state = useState({ messages: [] });
     }
 
     async onSendMessage(userInput) {
-        // Llamada al controlador que ya tienes en form_controller.py
-        const response = await this.rpc("/a2ui/get_dynamic_form", { prompt: userInput });
+        const response = await this.rpc("/a2ui/execute_agent", { prompt: userInput });
 
-        let newMessage = { id: Date.now(), author: "Asistente A2UI" };
+        let newMessage = { id: Date.now() };
 
-        if (response && response.action === "render_form") {
-            newMessage.is_form = true;
-            newMessage.fields = response.fields;
+        // Verificamos si la IA pidió un componente y si lo tenemos en el mapa
+        if (response.status === "success" && COMPONENT_MAP[response.component]) {
+            newMessage.type = "component";
+            newMessage.component = COMPONENT_MAP[response.component];
+            newMessage.props = response.props;
         } else {
-            newMessage.is_form = false;
-            newMessage.body = response.message || JSON.stringify(response);
+            newMessage.type = "text";
+            newMessage.body = response.message || "Entendido.";
         }
 
         this.state.messages.push(newMessage);
-    }
-
-    _onSaveData(formData) {
-        console.log("Datos recibidos del formulario:", formData);
-        // Aquí iría la lógica para guardar en Odoo
     }
 }

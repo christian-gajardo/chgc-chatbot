@@ -27,7 +27,7 @@
             'ai_agent/static/src/components/chat_form/chat_form.scss',
         ],
         'web.assets_frontend': [
-            'ai_agent/static/src/js/website_chat.js',
+            'ai_agent/static/src/js/message_path.js',
             'ai_agent/static/src/css/chatbot_style.css',
         ],
     },
