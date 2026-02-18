@@ -33,6 +33,9 @@ export class MessagePath extends Component {
     }
 
     async onSendMessage(userInput) {
+
+        console.group("A2UI: Depuración de Respuesta"); // Agrupa los logs para limpieza
+        console.log("1. Prompt enviado:", userInput);
         // 1. Llamada nativa de Odoo
         const response = await this.rpc("/ai/generate_response", { prompt: userInput });
 
