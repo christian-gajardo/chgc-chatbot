@@ -17,7 +17,6 @@
         'data/ai_agent_data/ai_agent_tools_data.xml',
         'data/ai_agent_data/ai_agent_topics_data.xml',
         'data/ai_agent_data/ai_agent_data.xml',
-        'views/chatbot_templates.xml',
     ],
     'assets': {
         'web.assets_backend': [
@@ -26,7 +25,6 @@
             'ai_agent/static/src/components/chat_form/chat_form.scss',
         ],
         'web.assets_frontend': [
-            'ai_agent/static/src/js/chatbot_widget.js',
         ],
     },
     'installable': True,
