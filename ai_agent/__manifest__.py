@@ -26,7 +26,7 @@
             'ai_agent/static/src/components/chat_form/chat_form.scss',
         ],
         'web.assets_frontend': [
-            'ai_agent/static/src/chatbot_widget.js',
+            'ai_agent/static/src/js/chatbot_widget.js',
         ],
     },
     'installable': True,
