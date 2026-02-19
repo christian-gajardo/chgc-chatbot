@@ -146,13 +146,10 @@ IMPORTANTE: Responde SOLO el JSON, sin markdown, sin backticks, sin texto adicio
 
 
             # Usar el agente configurado
-            ai_service = request.env['ai.service'].sudo()
-
-            ai_raw_response = ai_service._generate_text(
-                agent_id=agent.id,
-                prompt=prompt,
+            ai_raw_response = agent._process_message(
+                message=prompt,
+                conversation=None,
             )
-
 
             if not ai_raw_response:
                 raise Exception("Sin respuesta del agente")
