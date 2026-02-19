@@ -92,9 +92,6 @@ class ChatbotWebController(http.Controller):
             except:
                 pass
             
-            # Configurar Gemini
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel('gemini-flash-latest')
             
             # ==============================================================================================
             # 2. AUGMENTATION (AUMENTACIÓN)
