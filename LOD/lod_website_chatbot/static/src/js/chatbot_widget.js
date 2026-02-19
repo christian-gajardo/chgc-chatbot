@@ -6,8 +6,6 @@ import { renderContactCard } from "./components/contact_card/contact_card.js";
 import { renderProductList } from "./components/product_list/product_list.js";
 import { renderProductDetail } from "./components/product_detail/product_detail.js";
 
-import { renderToElement } from "@web/core/utils/render";
-
 // funcion que se ejecuta al cargar el archivo, sirve para cargar el chatbot. 
 (function () {
     'use strict';
@@ -21,9 +19,46 @@ import { renderToElement } from "@web/core/utils/render";
     // al cargar el archivo solo lo ejecuta cuando se llama
     // html para cargar el chatbot 
     function initChatbot() {
-        // inserta el chatbot en el body usando renderToElement
-        const chatbotElement = renderToElement("lod_website_chatbot.ChatbotWindow");
-        document.body.appendChild(chatbotElement);
+        const chatbotHTML = `
+            <div id="lod-chatbot" class="lod-chatbot-closed">
+                <button id="lod-chatbot-toggle" class="lod-chatbot-toggle">
+                    <span class="lod-chatbot-icon">💬</span>
+                    <span class="lod-chatbot-text">Consultas</span>
+                </button>
+                
+                <div id="lod-chatbot-window" class="lod-chatbot-window">
+                    <div class="lod-chatbot-header">
+                        <div class="lod-chatbot-title">
+                            <span class="lod-chatbot-avatar">🏗️</span>
+                            <div>
+                                <h3>Asistente de Construcción</h3>
+                                <p class="lod-chatbot-status">En línea</p>
+                            </div>
+                        </div>
+                        <button id="lod-chatbot-close" class="lod-chatbot-close">✕</button>
+                    </div>
+
+                    <div id="lod-chatbot-messages" class="lod-chatbot-messages">
+                        <div class="lod-message lod-message-bot">
+                            <div class="lod-message-content">
+                                ¡Hola! 👋 Soy tu asistente virtual. Puedo ayudarte con consultas sobre materiales de construcción. ¿En qué puedo ayudarte?
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lod-chatbot-input-container">
+                        <input type="text" id="lod-chatbot-input" class="lod-chatbot-input" placeholder="Escribe tu pregunta..." autocomplete="off"/>
+                        <button id="lod-chatbot-send" class="lod-chatbot-send">Enviar</button>
+                    </div>
+
+                    <div id="lod-chatbot-typing" class="lod-chatbot-typing" style="display: none;">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        `;
+        // inserta el chatbot en el body usando insertAdjacentHTML
+        document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
         // selecciona los elementos del chatbot , usando getElementById estos elementos estan definidos en el html. 
         const chatbot = document.getElementById('lod-chatbot');
