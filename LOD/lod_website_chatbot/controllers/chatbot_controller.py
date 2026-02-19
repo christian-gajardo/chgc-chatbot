@@ -145,16 +145,34 @@ IMPORTANTE: Responde SOLO el JSON, sin markdown, sin backticks, sin texto adicio
             # una respuesta en lenguaje natural basada en esa información exacta.
 
 
-            # Usar el agente configurado
-            ai_raw_response = agent._process_message(
-                message=prompt,
-                conversation=None,
-            )
+            # Buscar canal livechat activo con AI
+            channel = request.env['mail.channel'].sudo().search([
+                ('channel_type', '=', 'livechat'),
+            ], limit=1)
 
-            if not ai_raw_response:
+            if not channel:
+                raise Exception("No hay canal de Livechat configurado")
+
+            # Crear mensaje en el canal
+            user_message = request.env['mail.message'].sudo().create({
+                'body': prompt,
+                'model': 'mail.channel',
+                'res_id': channel.id,
+                'message_type': 'comment',
+                'author_id': request.env.user.partner_id.id,
+            })
+
+            # Esperar respuesta del AI (buscar último mensaje diferente al nuestro)
+            ai_message = request.env['mail.message'].sudo().search([
+                ('model', '=', 'mail.channel'),
+                ('res_id', '=', channel.id),
+                ('id', '>', user_message.id),
+            ], order='id desc', limit=1)
+
+            if not ai_message:
                 raise Exception("Sin respuesta del agente")
 
-            raw_text = ai_raw_response.strip()
+            raw_text = ai_message.body.strip()
             #MODIFICADO 
 
             _logger.info(f"Chatbot respondió: '{message[:50]}'")
