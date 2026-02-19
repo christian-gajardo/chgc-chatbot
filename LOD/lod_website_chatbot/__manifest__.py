@@ -24,6 +24,11 @@
     ],
     'assets': {
         'web.assets_frontend': [
+            'lod_website_chatbot/static/src/js/utils.js',
+            'lod_website_chatbot/static/src/js/components/material_table/material_table.js',
+            'lod_website_chatbot/static/src/js/components/contact_card/contact_card.js',
+            'lod_website_chatbot/static/src/js/components/product_list/product_list.js',
+            'lod_website_chatbot/static/src/js/components/product_detail/product_detail.js',
             'lod_website_chatbot/static/src/js/chatbot_widget.js',
             'lod_website_chatbot/static/src/css/chatbot.css',
         ],
