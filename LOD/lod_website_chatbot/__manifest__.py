@@ -17,7 +17,6 @@
     'website': 'https://github.com/raulcid-droid/LOD',
     'depends': [
         'website',
-        'lod_module',
     ],
     'data': [
         'views/chatbot_templates.xml',

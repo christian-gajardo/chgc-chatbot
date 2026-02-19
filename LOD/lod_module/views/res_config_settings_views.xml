@@ -1,22 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
-        <field name="name">res.config.settings.construction</field>
-        <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
-                <app string="Construction Materials AI" name="construction_materials">
-                    <block title="Gemini API Configuration">
-                        <setting help="Configure your Google Gemini API Key">
-                            <field name="construction_api_key" password="True" placeholder="Enter your Gemini API Key"/>
-                            <div class="text-muted">
-                                Get your free API key at: https://aistudio.google.com/api-keys
-                            </div>
-                        </setting>
-                    </block>
-                </app>
-            </xpath>
-        </field>
-    </record>
-</odoo>
+<record id="view_chatbot_settings" model="ir.ui.view">
+    <field name="name">res.config.settings.chatbot</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base.view_res_config_settings"/>
+    <field name="arch" type="xml">
+        <xpath expr="//div[hasclass('settings')]" position="inside">
+            <div class="app_settings_block" data-string="Chatbot">
+                <h2>Chatbot</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <field name="chatbot_agent_id"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </field>
+</record>
