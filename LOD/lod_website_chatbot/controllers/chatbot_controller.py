@@ -15,19 +15,19 @@ class ChatbotWebController(http.Controller):
             if not message or len(message.strip()) < 3:
                 return {'success': False, 'error': 'Por favor escribe una pregunta más específica'}
             
-            # Obtener API Key
-            api_key = request.env['ir.config_parameter'].sudo().get_param('construction_materials.api_key')
-            
-            if not api_key:
-                _logger.error("API Key de Gemini no configurada")
-                return {'success': False, 'error': 'Chatbot no disponible'}
-            
-            # Verificar librería
-            try:
-                import google.generativeai as genai
-            except ImportError:
-                _logger.error("Librería google-generativeai no instalada")
-                return {'success': False, 'error': 'Servicio no disponible'}
+            # Obtener agente configurado
+            agent_id = request.env['ir.config_parameter'].sudo().get_param(
+                'construction_materials.agent_id'
+            )
+
+            if not agent_id:
+                return {'success': False, 'error': 'Agente IA no configurado'}
+
+            agent = request.env['ai.agent'].sudo().browse(int(agent_id))
+
+            if not agent.exists():
+                return {'success': False, 'error': 'Agente IA inválido'}
+
             
             # ==============================================================================================
             # 1. RETRIEVAL (RECUPERACIÓN)
@@ -147,15 +147,18 @@ IMPORTANTE: Responde SOLO el JSON, sin markdown, sin backticks, sin texto adicio
             # JUNTOS con los datos del inventario y contenido web que le acabamos de pasar, y "genera" 
             # una respuesta en lenguaje natural basada en esa información exacta.
 
-            response = model.generate_content(prompt)
 
-            if not response or not response.text:
-                raise Exception("Sin respuesta")
+            # Usar el agente configurado
+            ai_raw_response = agent._generate(prompt=prompt)
+
+            if not ai_raw_response:
+                raise Exception("Sin respuesta del agente")
+
+            raw_text = ai_raw_response.strip()
+            #MODIFICADO 
 
             _logger.info(f"Chatbot respondió: '{message[:50]}'")
 
-            # Parsear JSON de Gemini
-            raw_text = response.text.strip()
             try:
                 ai_response = json.loads(raw_text)
                 component_type = ai_response.get('type', 'text')
