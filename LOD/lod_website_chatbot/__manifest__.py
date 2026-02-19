@@ -24,6 +24,7 @@
     ],
     'assets': {
         'web.assets_frontend': [
+            'lod_website_chatbot/static/src/xml/chatbot_widget.xml',
             'lod_website_chatbot/static/src/js/utils.js',
             'lod_website_chatbot/static/src/js/components/material_table/material_table.js',
             'lod_website_chatbot/static/src/js/components/contact_card/contact_card.js',
