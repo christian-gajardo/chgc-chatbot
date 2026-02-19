@@ -12,8 +12,9 @@ class ResConfigSettings(models.TransientModel): # heredamos de res.config.settin
     )
 
     construction_agent_id = fields.Many2one(
-        'ai.agent',
-        string='AI Agent',
-        config_parameter='construction_materials.agent_id',
-        help='Select which Odoo AI Agent will handle the assistant'
-    )
+    'ai.agent',
+    string='AI Agent',
+    config_parameter='construction_materials.agent_id',
+    default=lambda self: self.env['ai.agent'].search([], limit=1),
+)
+
