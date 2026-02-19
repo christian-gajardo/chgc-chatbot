@@ -16,17 +16,20 @@ class ChatbotWebController(http.Controller):
                 return {'success': False, 'error': 'Por favor escribe una pregunta más específica'}
             
             # Obtener agente configurado
-            agent_id = request.env['ir.config_parameter'].sudo().get_param(
+            agent_param = request.env['ir.config_parameter'].sudo().get_param(
                 'construction_materials.agent_id'
             )
 
-            if not agent_id:
+            if not agent_param:
                 return {'success': False, 'error': 'Agente IA no configurado'}
 
-            agent = request.env['ai.agent'].sudo().browse(int(agent_id))
+            try:
+                agent = request.env['ai.agent'].sudo().browse(int(agent_param))
+            except (ValueError, TypeError):
+                return {'success': False, 'error': 'Configuración de Agente IA inválida'}
 
             if not agent.exists():
-                return {'success': False, 'error': 'Agente IA inválido'}
+                return {'success': False, 'error': 'El Agente IA configurado ya no existe'}
 
             
             # ==============================================================================================
@@ -155,7 +158,17 @@ IMPORTANTE: Responde SOLO el JSON, sin markdown, sin backticks, sin texto adicio
                 raise Exception("Sin respuesta del agente")
 
             raw_text = ai_raw_response.strip()
-            #MODIFICADO 
+            
+            # Limpiar respuesta de bloques de código markdown (```json ... ```)
+            if raw_text.startswith('```'):
+                lines = raw_text.splitlines()
+                # Quitar la primera línea si es la apertura del bloque
+                if lines[0].startswith('```'):
+                    lines = lines[1:]
+                # Quitar la última línea si es el cierre del bloque
+                if lines and lines[-1].startswith('```'):
+                    lines = lines[:-1]
+                raw_text = '\n'.join(lines).strip()
 
             _logger.info(f"Chatbot respondió: '{message[:50]}'")
 
@@ -164,7 +177,7 @@ IMPORTANTE: Responde SOLO el JSON, sin markdown, sin backticks, sin texto adicio
                 component_type = ai_response.get('type', 'text')
                 friendly_text = ai_response.get('text', raw_text)
             except (json.JSONDecodeError, AttributeError):
-                # Fallback: si Gemini no devuelve JSON válido, tratar como texto
+                # Fallback: tratar como texto si la IA no devolvió un JSON válido
                 component_type = 'text'
                 friendly_text = raw_text
 
@@ -239,6 +252,4 @@ IMPORTANTE: Responde SOLO el JSON, sin markdown, sin backticks, sin texto adicio
             
         except Exception as e:
             _logger.error(f"Error chatbot: {str(e)}")
-            if 'Quota exceeded' in str(e):
-                return {'success': False, 'error': 'Servicio saturado. Intenta en unos minutos.'}
-            return {'success': False, 'error': 'Error del servidor.'}
+            return {'success': False, 'error': 'Lo siento, hubo un problema al procesar tu consulta técnica.'}
